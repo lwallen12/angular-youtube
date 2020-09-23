@@ -8,7 +8,7 @@
       "schematics": {},
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "app",  
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-youtube"
+    }
+  },
+  "defaultProject": "angular-youtube",
+  "cli": {
+    "analytics": "f8452ae9-b073-44a8-bd1e-9c4893d7e5f7"
+  }
 }

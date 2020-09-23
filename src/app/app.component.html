@@ -500,6 +500,18 @@
       </svg>
     </a>
   </div>
+    <youtube-player 
+      (ready)="onReady($event)"
+      (stateChange)="onStateChange($event)"
+      [videoId]="selectedVid" 
+      suggestedQuality="highres" 
+      [height]="250" 
+      [width]="500" >
+  </youtube-player>
+
+  <button (click)="startTheQueue()">Start the Video</button>
+  <!-- <button (click)="nextVideo()">Next Video</button> -->
+  <button (click)="findHighestVid()">Print Id</button>
 
   <!-- Footer -->
   <footer>
