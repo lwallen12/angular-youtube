@@ -16,7 +16,9 @@ export class AppComponent  {
   //vids = ["J3aA1X2tnQc", 'T1di02CaDSQ', 'nyyXkA2j9YI', 'KT7F15T9VBI', 'SaW5B2SEnXg', 'JlbMDgUqgow'];
 
   newVids = [];
-  selectedVid = 'SaW5B2SEnXg';
+  selectedVid = '';
+
+  playStatus = 'waiting';
   
 
   constructor() {
@@ -45,7 +47,12 @@ export class AppComponent  {
     
   }
 
-  counter = 0;
+  // counter = 0;
+
+  startItUp() {
+    this.playStatus = 'playing';
+    this.selectedVid = this.findHighestVotedVideo().id;
+  }
 
   onReady(event) {
     console.log("ready");
@@ -54,6 +61,7 @@ export class AppComponent  {
     console.log("see new Vids");
     console.log(this.newVids);
     this.youtubePlayer.mute();
+    this.youtubePlayer.playVideo();
   }
 
   onStateChange(event) {
@@ -101,6 +109,11 @@ export class AppComponent  {
   /////////////////////////////
 
   upVote(vid) {
+
+    // if (!this.selectedVid) {
+    //   this.selectedVid = vid.id;
+    // }
+
     let index = this.newVids.findIndex(v => v.id === vid.id);
 
     this.newVids[index].vote = this.newVids[index].vote + 1;

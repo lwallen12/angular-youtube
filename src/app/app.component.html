@@ -500,6 +500,8 @@
       </svg>
     </a>
   </div>
+
+  <div *ngIf="playStatus === 'playing'">
     <youtube-player 
       (ready)="onReady($event)"
       (stateChange)="onStateChange($event)"
@@ -508,6 +510,9 @@
       [height]="250" 
       [width]="500" >
   </youtube-player>
+  </div>
+    
+  <button (click)="startItUp()">Start it up!</button>
 
   <div class="songcards">
     <div [ngClass]="{'active-video': vid.id == this.selectedVid}" *ngFor="let vid of newVids" class="songcard">
