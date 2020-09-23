@@ -1,0 +1,21 @@
+button {
+    margin: 2px;
+    /* display: inline-block; */
+}
+
+.songcard {
+    border: 3px solid black;
+    background-color: aliceblue;
+    margin: 10px;
+    width: 400px;
+}
+
+/* .button-holder {
+    margin: auto;
+    width: 100px;
+} */
+
+
+.active-video {
+    background-color: deeppink;
+}

@@ -22,15 +22,16 @@ export class AppComponent  {
   constructor() {
 
     this.newVids = [
-      {id: "J3aA1X2tnQc", description: "Old Timey Baseball", vote: 18},
-      {id: 'T1di02CaDSQ', description: 'Rizzo and Swan', vote: 6},
-      {id: 'nyyXkA2j9YI', description: 'Rally Squirrel', vote: 18}, 
-      {id: 'KT7F15T9VBI', description: 'Heat Waves', vote: 12}, 
-      {id: 'SaW5B2SEnXg', description: 'Tatis hits a grandslam', vote: 5}, 
+      {id: "J3aA1X2tnQc", description: "Old Timey Baseball", vote: 0},
+      {id: 'T1di02CaDSQ', description: 'Rizzo and Swan', vote: 0},
+      {id: 'nyyXkA2j9YI', description: 'Rally Squirrel', vote: 0}, 
+      {id: 'KT7F15T9VBI', description: 'Heat Waves', vote: 0}, 
+      {id: 'SaW5B2SEnXg', description: 'Tatis hits a grandslam', vote: 0}, 
       {id: 'JlbMDgUqgow', description: 'Padres arrre terrible baserunners', vote: 0}
     ];
 
-    //this.selectedVid = //findHighestValue
+    //just so i can actually listen to music while i code
+
   }
 
   ngOnInit() {
@@ -52,6 +53,7 @@ export class AppComponent  {
     //this.youtubePlayer.playVideo();
     console.log("see new Vids");
     console.log(this.newVids);
+    this.youtubePlayer.mute();
   }
 
   onStateChange(event) {
@@ -94,6 +96,22 @@ export class AppComponent  {
 
     return highestObj;
   }
+
+
+  /////////////////////////////
+
+  upVote(vid) {
+    let index = this.newVids.findIndex(v => v.id === vid.id);
+
+    this.newVids[index].vote = this.newVids[index].vote + 1;
+
+    // console.log("are you even upvoting?: " + this.newVids[index].vote);
+  }
   
+  downVote(vid) {
+    let index = this.newVids.findIndex(v => v.id === vid.id);
+    this.newVids[index].vote = this.newVids[index].vote - 1;
+    // console.log("are you even downvoting?: " + this.newVids[index].vote);
+  }
 
 }
