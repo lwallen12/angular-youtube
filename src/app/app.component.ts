@@ -60,7 +60,7 @@ export class AppComponent  {
     //this.youtubePlayer.playVideo();
     console.log("see new Vids");
     console.log(this.newVids);
-    this.youtubePlayer.mute();
+    //this.youtubePlayer.mute();
     this.youtubePlayer.playVideo();
   }
 
