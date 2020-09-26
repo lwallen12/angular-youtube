@@ -1,0 +1,13 @@
+<div class="search">
+    <input #search placeholder="search videos" />
+    <button (click)="onSearch(search.value)">Search</button>
+</div>
+
+<div class="querycontainer">
+    <div *ngFor="let res of queryResults" class="queryCard">
+        <h4>{{res.snippet.title}}</h4>
+        <p>{{res.snippet.description}}</p>
+        <img src={{res.snippet.thumbnails.high.url}} />
+        <button (click)="onSearch(search.value)">Add to Queue</button>
+    </div>
+</div>
