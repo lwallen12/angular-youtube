@@ -33,3 +33,7 @@ button:hover {
     margin: 10px;
     width: 400px;
 }
+
+.active-video {
+    background-color: pink;
+}

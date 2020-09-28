@@ -31,6 +31,9 @@ export class SearchComponent implements OnInit {
   onAddVideo(searchItem) {
       searchItem.vote = 0;
       this.queueService.addVideoToQueue(searchItem);
+      this.queryResults.splice(
+        this.queryResults.findIndex(qr => qr.id.videoId === searchItem.id.videoId), 
+          1);
   }
 
 
