@@ -9,11 +9,13 @@ export class QueueService {
 
   videos = [];
 
-  public addVideoToQueue(video) {
+  addVideoToQueue(video) {
     this.videos.push(video);
+    console.log(this.videos.length);
   }
 
-  public getVideos() {
+  getVideos() {
+    console.log(this.videos.length);
     return this.videos;
   }
 

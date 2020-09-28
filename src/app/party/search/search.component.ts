@@ -29,6 +29,7 @@ export class SearchComponent implements OnInit {
   }
 
   onAddVideo(searchItem) {
+      searchItem.vote = 0;
       this.queueService.addVideoToQueue(searchItem);
   }
 

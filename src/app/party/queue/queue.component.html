@@ -15,7 +15,7 @@
 
     <div class="songcards">
         <div [ngClass]="{'active-video': vid.id == this.selectedVid}" *ngFor="let vid of newVids" class="songcard">
-        <h3>{{vid.description}}</h3>
+        <h3>{{vid.snippet.title}}</h3>
         <h1 style="text-align: center;">{{vid.vote}}</h1>
         <div class="button-holder">
             <button (click)="upVote(vid)">Upvote</button><button (click)="downVote(vid)">Downvote</button>

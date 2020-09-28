@@ -18,6 +18,7 @@ export class QueueComponent implements OnInit {
 
   constructor(private queueService: QueueService) {  
     this.newVids = this.queueService.getVideos();
+    console.log(this.newVids);
    }
 
   refresh() {
@@ -42,7 +43,7 @@ export class QueueComponent implements OnInit {
     }
 
     this.playStatus = 'playing';
-    this.selectedVid = this.findHighestVotedVideo().id;
+    this.selectedVid = this.findHighestVotedVideo().id.videoId;
   }
 
   onReady(event) {
@@ -89,9 +90,12 @@ export class QueueComponent implements OnInit {
 
 
   findHighestVotedVideo() {
+
     let allVotes = this.newVids.map(vid => vid.vote);
 
     let highestObj = this.newVids.find(vid => vid.vote === Math.max(...allVotes));
+
+    console.log(highestObj);
 
     return highestObj;
   }
