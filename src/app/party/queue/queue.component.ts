@@ -57,7 +57,7 @@ export class QueueComponent implements OnInit {
   }
 
   onStateChange(event) {
-    if (this.newVids.length <= 1) {
+    if (this.newVids.length < 1) {
       //when there is one video left.. need to put some thought in to how to handle this..
       //we could set videos vote to 0
       //we could have some flag set that says... "okay last one is played.. can restart..".. kicking off 
@@ -74,7 +74,7 @@ export class QueueComponent implements OnInit {
         console.log(this.newVids);
 
         console.log(this.findHighestVotedVideo());
-        this.selectedVid = this.findHighestVotedVideo().id;
+        this.selectedVid = this.findHighestVotedVideo().id.videoId;
 
         console.log("ended"); 
     }
