@@ -6,16 +6,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { YouTubePlayerModule } from "@angular/youtube-player";
-import { SearchComponent } from './party/search/search.component';
-import { PartyComponent } from './party/party.component';
-import { QueueComponent } from './party/queue/queue.component';
+import { SearchComponent } from './parties/party/search/search.component';
+import { PartyComponent } from './parties/party/party.component';
+import { QueueComponent } from './parties/party/queue/queue.component';
+import { PartiesComponent } from './parties/parties.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SearchComponent,
     PartyComponent,
-    QueueComponent
+    QueueComponent,
+    PartiesComponent
   ],
   imports: [
     BrowserModule,
