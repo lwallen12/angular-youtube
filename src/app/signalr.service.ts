@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import * as signalR from "@aspnet/signalr";
+import { QueueService } from './parties/party/search/queue.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SignalrService {
 
-  constructor() { }
+  constructor(private queueService: QueueService) { }
 
   private hubConnection: signalR.HubConnection;  
 
@@ -23,8 +24,18 @@ export class SignalrService {
   //can be used to receive a queue
   public addBroadCastListener = () => {
     this.hubConnection.on('BroadCast', (data) => {
+      console.log("received a video");
+      this.queueService.addVideoToQueue(data);
+      console.log(data);
+      return data;
+    });
+  }
+
+  public addQueueListener = () => {
+    this.hubConnection.on('NewQueueItem', (data) => {
       console.log("receiving transmission... bee boo boo bop");
       console.log(data);
+      // this.queueService.addVideoToQueue(data);
       return data;
     });
   }

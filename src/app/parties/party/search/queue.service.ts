@@ -15,21 +15,22 @@ export class QueueService {
 
   videos = [];
 
-  addVideoToQueue(video, partyName='') {
-    this.videos.push(video);
+  addVideoToQueue(queue) {
+    // this.videos.push(video);
+
+    // let queue = new Queue();
+
+    // queue.channelTitle = video.channelTitle;
+    // queue.description = video.snippet.description;
+    // queue.imageURL = video.snippet.thumbnails.high.url;
+    // queue.partyName = video.partyName;
+    // queue.title = video.snippet.title;
+    // queue.videoId = video.id.videoId;
+    // queue.vote = 0;
+
+    this.videos.push(queue);
     console.log(this.videos.length);
-
-    let queue = new Queue();
-
-    queue.channelTitle = video.channelTitle;
-    queue.description = video.snippet.description;
-    queue.imageURL = video.snippet.thumbnails.high.url;
-    queue.partyName = partyName;
-    queue.title = video.snippet.title;
-    queue.videoId = video.id.videoId;
-    queue.vote = 0;
-
-    console.log(queue);
+    //console.log(queue);
   }
 
   getVideos() {
