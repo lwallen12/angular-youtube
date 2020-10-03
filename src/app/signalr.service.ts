@@ -23,9 +23,14 @@ export class SignalrService {
   //can be used to receive a queue
   public addBroadCastListener = () => {
     this.hubConnection.on('BroadCast', (data) => {
+      console.log("receiving transmission... bee boo boo bop");
       console.log(data);
       return data;
     });
+  }
+
+  public BroadcastFromClient = () => {
+    this.hubConnection.invoke("BroadcastFromClient", {id: "none"});
   }
 
   //invoked when choosing the group to load

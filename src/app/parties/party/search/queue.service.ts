@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { Queue } from 'src/app/models/queue';
 
 
 @Injectable({
@@ -14,9 +15,21 @@ export class QueueService {
 
   videos = [];
 
-  addVideoToQueue(video) {
+  addVideoToQueue(video, partyName='') {
     this.videos.push(video);
     console.log(this.videos.length);
+
+    let queue = new Queue();
+
+    queue.channelTitle = video.channelTitle;
+    queue.description = video.snippet.description;
+    queue.imageURL = video.snippet.thumbnails.high.url;
+    queue.partyName = partyName;
+    queue.title = video.snippet.title;
+    queue.videoId = video.id.videoId;
+    queue.vote = 0;
+
+    console.log(queue);
   }
 
   getVideos() {

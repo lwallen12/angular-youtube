@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SignalrService } from '../signalr.service';
 import { QueueService } from './party/search/queue.service';
 
 @Component({
@@ -8,7 +9,7 @@ import { QueueService } from './party/search/queue.service';
 })
 export class PartiesComponent implements OnInit {
 
-  constructor(private queueService: QueueService) { }
+  constructor(private queueService: QueueService, private signalRService: SignalrService) { }
 
   parties = [];
 
@@ -29,6 +30,11 @@ export class PartiesComponent implements OnInit {
 
   addConnToGroup(p) {
     //TODO: Call group join method and pass it this group name
+    this.signalRService.joinGroup(p);
+  }
+
+  broadCast() {
+    this.signalRService.BroadcastFromClient();
   }
 
 }

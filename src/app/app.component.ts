@@ -18,6 +18,7 @@ export class AppComponent  {
 
   ngOnInit() {
     this.signalrService.startConnection();
+    this.signalrService.addBroadCastListener();
   }
 
  

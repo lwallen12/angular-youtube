@@ -5,7 +5,8 @@
 
 <div class="parties">
     <div class="party" *ngFor="let p of parties">
-        <h3><a (click)="addConnToGroup(p)" [routerLink]="[p]">{{p}}</a></h3>
-        
+        <h3><a (click)="addConnToGroup(p)" [routerLink]="[p]">{{p}}</a></h3>  
     </div>
 </div>
+
+<button (click)="broadCast()">Broadcast</button>

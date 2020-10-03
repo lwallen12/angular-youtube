@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Queue } from 'src/app/models/queue';
+import { SignalrService } from 'src/app/signalr.service';
 import { QueueService } from './queue.service';
 import { YoutubeService } from './youtube.service';
 
@@ -9,12 +12,22 @@ import { YoutubeService } from './youtube.service';
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private youtubeService: YoutubeService, private queueService: QueueService) { }
+  constructor(private youtubeService: YoutubeService, 
+              private queueService: QueueService,
+              private signalRService: SignalrService,
+              private router: Router) { }
 
   queryResults = [];
+  sub: any;
+
+  partyName: string;
 
   ngOnInit(): void {
     
+    console.log(this.router.url);
+    this.partyName = this.router.url.split('/')[2];
+    console.log(this.partyName);
+
   }
 
   onSearch(value) {
@@ -30,7 +43,19 @@ export class SearchComponent implements OnInit {
 
   onAddVideo(searchItem) {
       searchItem.vote = 0;
-      this.queueService.addVideoToQueue(searchItem);
+      this.queueService.addVideoToQueue(searchItem, this.partyName);
+
+      let queue = new Queue();
+
+      queue.channelTitle = searchItem.channelTitle;
+      queue.description = searchItem.snippet.description;
+      queue.imageURL = searchItem.snippet.thumbnails.high.url;
+      queue.partyName = this.partyName;
+      queue.title = searchItem.snippet.title;
+      queue.videoId = searchItem.id.videoId;
+      queue.vote = 0;
+
+      this.signalRService.broadcastQueue(queue);
       this.queryResults.splice(
         this.queryResults.findIndex(qr => qr.id.videoId === searchItem.id.videoId), 
           1);
