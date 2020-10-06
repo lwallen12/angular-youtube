@@ -1,4 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { QueueService } from './search/queue.service';
 
 @Component({
   selector: 'app-party',
@@ -10,12 +12,12 @@ export class PartyComponent implements OnInit, OnDestroy {
   sub: any;
   partyName: string;
 
-  constructor() {
+  constructor(private router: Router, private queueService: QueueService) {
     
    }
 
   ngOnInit(): void {
-
+    
   }
 
   ngOnDestroy() {

@@ -16,21 +16,13 @@ export class QueueService {
   videos = [];
 
   addVideoToQueue(queue) {
-    // this.videos.push(video);
-
-    // let queue = new Queue();
-
-    // queue.channelTitle = video.channelTitle;
-    // queue.description = video.snippet.description;
-    // queue.imageURL = video.snippet.thumbnails.high.url;
-    // queue.partyName = video.partyName;
-    // queue.title = video.snippet.title;
-    // queue.videoId = video.id.videoId;
-    // queue.vote = 0;
-
     this.videos.push(queue);
     console.log(this.videos.length);
     //console.log(queue);
+  }
+
+  getPartyVideos(partyName: string): Observable<Queue[]>{
+   return this.http.get<Queue[]>(this.baseURL + '/videos/' + partyName);
   }
 
   getVideos() {

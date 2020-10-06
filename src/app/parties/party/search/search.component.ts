@@ -55,7 +55,7 @@ export class SearchComponent implements OnInit {
       queue.videoId = searchItem.id.videoId;
       queue.vote = 0;
 
-      this.queueService.addVideoToQueue(queue);
+      //this.queueService.addVideoToQueue(queue);
 
       this.signalRService.broadcastQueue(queue);
       this.queryResults.splice(

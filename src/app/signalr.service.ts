@@ -58,4 +58,19 @@ export class SignalrService {
       any);
   }
 
+  public vote = (any) => {
+    this.hubConnection.invoke("Vote", any);
+  }
+
+  public addVoteListener = () => {
+    this.hubConnection.on('Vote', (data) => {
+      console.log("receiving vote transmission... bee boo boo bop");
+      console.log(data);
+
+      
+      
+      return data;
+    });
+  }
+
 }
