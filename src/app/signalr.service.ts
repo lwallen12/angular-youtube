@@ -9,20 +9,10 @@ export class SignalrService {
 
   constructor(private queueService: QueueService) { }
 
-  private hubConnection: signalR.HubConnection;  
-
-  public startConnection = () => {
-    this.hubConnection = new signalR.HubConnectionBuilder()
-                            .withUrl('https://localhost:44393/hubs/party')
-                            .build();
-    this.hubConnection
-      .start()
-      .then(() => console.log('Connection started'))
-      .catch(err => console.log('Error while starting connection: ' + err))      
-  }
-
-  //can be used to receive a queue
-  public addBroadCastListener = () => {
+  private hubConnection: signalR.HubConnection; 
+  
+   //can be used to receive a queue
+   public addBroadCastListener = () => {
     this.hubConnection.on('BroadCast', (data) => {
       console.log("received a video");
       this.queueService.addVideoToQueue(data);
@@ -31,11 +21,12 @@ export class SignalrService {
     });
   }
 
-  public addQueueListener = () => {
-    this.hubConnection.on('NewQueueItem', (data) => {
-      console.log("receiving transmission... bee boo boo bop");
+  
+
+  public addVoteListener = () => {
+    this.hubConnection.on('newvote', (data) => {
+      console.log("receiving vote transmission... bee boo boo bop");
       console.log(data);
-      // this.queueService.addVideoToQueue(data);
       return data;
     });
   }
@@ -62,15 +53,16 @@ export class SignalrService {
     this.hubConnection.invoke("Vote", any);
   }
 
-  public addVoteListener = () => {
-    this.hubConnection.on('Vote', (data) => {
-      console.log("receiving vote transmission... bee boo boo bop");
-      console.log(data);
-
-      
-      
-      return data;
-    });
+  public startConnection = () => {
+    this.hubConnection = new signalR.HubConnectionBuilder()
+                            .withUrl('https://localhost:44393/hubs/party')
+                            .build();
+    this.hubConnection
+      .start()
+      .then(() => console.log('Connection started'))
+      .catch(err => console.log('Error while starting connection: ' + err))      
   }
+
+ 
 
 }

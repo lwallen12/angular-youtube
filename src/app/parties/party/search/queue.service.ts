@@ -25,6 +25,10 @@ export class QueueService {
    return this.http.get<Queue[]>(this.baseURL + '/videos/' + partyName);
   }
 
+  testCall(): Observable<any> {
+    return this.http.get<any>(this.baseURL);
+  }
+
   getVideos() {
     console.log(this.videos.length);
     return this.videos;
