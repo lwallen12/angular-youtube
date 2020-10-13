@@ -34,7 +34,13 @@ export class QueueComponent implements OnInit {
                       vidInQuestion.vote--;
                     }
                   }
-                )
+                );
+
+                signalrService.queueItemStream$.subscribe(
+                  queueItem => {
+                    this.newVids.push(queueItem);
+                  }
+                );
    }
 
   refresh() {
@@ -155,8 +161,13 @@ export class QueueComponent implements OnInit {
   }
   
   downVote(vid) {
-    let index = this.newVids.findIndex(v => v.videoId === vid.videoId);
-    this.newVids[index].vote = this.newVids[index].vote - 1;
+    let votePackage = new VotePackage();
+    votePackage.partyName = this.partyName;
+    votePackage.videoId = vid.videoId;
+    votePackage.action = "Down";
+
+    console.log(votePackage);
+    this.signalrService.vote(votePackage);
   }
 
 }

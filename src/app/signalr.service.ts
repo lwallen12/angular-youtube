@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as signalR from "@aspnet/signalr";
 import { Subject } from 'rxjs/internal/Subject';
+import { Queue } from './models/queue';
 import { VotePackage } from './models/votePackage';
 import { QueueService } from './parties/party/search/queue.service';
 
@@ -14,20 +15,21 @@ export class SignalrService {
   private hubConnection: signalR.HubConnection; 
 
   private voteSource = new Subject<VotePackage>();
+  private queueItemSource = new Subject<Queue>();
 
   voteStream$ = this.voteSource.asObservable();
+  queueItemStream$ = this.queueItemSource.asObservable();
   
    //can be used to receive a queue
    public addBroadCastListener = () => {
     this.hubConnection.on('BroadCast', (data) => {
       console.log("received a video");
-      this.queueService.addVideoToQueue(data);
+      //this.queueService.addVideoToQueue(data);
+      this.queueItemSource.next(data);
       console.log(data);
       return data;
     });
   }
-
-  
 
   public addVoteListener = () => {
     this.hubConnection.on('newvote', (data) => {
