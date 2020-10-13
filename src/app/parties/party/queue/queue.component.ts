@@ -132,15 +132,15 @@ export class QueueComponent implements OnInit {
   /////////////////////////////
 
   upVote(vid) {
-    let index = this.newVids.findIndex(v => v.videoId === vid.videoId);
-    this.newVids[index].vote = this.newVids[index].vote + 1;
+    // let index = this.newVids.findIndex(v => v.videoId === vid.videoId);
+    // this.newVids[index].vote = this.newVids[index].vote + 1;
 
-    this.queueService.testCall().subscribe(
-      data => {
-        console.log("AHHHHH calling the send all method in signalr");
-        console.log(data);
-      }
-    );
+    // this.queueService.testCall().subscribe(
+    //   data => {
+    //     console.log("AHHHHH calling the send all method in signalr");
+    //     console.log(data);
+    //   }
+    // );
 
     //Need to call hub method 1st, then we're done here... but the affecting the queue thing
     //as a listener
