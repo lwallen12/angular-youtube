@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as signalR from "@aspnet/signalr";
+import { Subject } from 'rxjs/internal/Subject';
+import { VotePackage } from './models/votePackage';
 import { QueueService } from './parties/party/search/queue.service';
 
 @Injectable({
@@ -10,6 +12,10 @@ export class SignalrService {
   constructor(private queueService: QueueService) { }
 
   private hubConnection: signalR.HubConnection; 
+
+  private voteSource = new Subject<VotePackage>();
+
+  voteStream$ = this.voteSource.asObservable();
   
    //can be used to receive a queue
    public addBroadCastListener = () => {
@@ -27,6 +33,8 @@ export class SignalrService {
     this.hubConnection.on('newvote', (data) => {
       console.log("receiving vote transmission... bee boo boo bop");
       console.log(data);
+      //this.queueService.updateVotes(data);
+      this.voteSource.next(data);
       return data;
     });
   }
@@ -51,6 +59,7 @@ export class SignalrService {
 
   public vote = (any) => {
     this.hubConnection.invoke("Vote", any);
+
   }
 
   public startConnection = () => {

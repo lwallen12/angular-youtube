@@ -23,8 +23,18 @@ export class QueueComponent implements OnInit {
   constructor(private queueService: QueueService, 
               private router: Router, 
               private signalrService: SignalrService) {  
-    //this.newVids = this.queueService.getVideos();
-    //console.log(this.newVids);
+    
+                signalrService.voteStream$.subscribe(
+                  votePackage => {
+                    let vidInQuestion = this.newVids.find(v => v.videoId === votePackage.videoId);
+
+                    if (votePackage.action === 'Up') {
+                      vidInQuestion.vote++;
+                    } else {
+                      vidInQuestion.vote--;
+                    }
+                  }
+                )
    }
 
   refresh() {

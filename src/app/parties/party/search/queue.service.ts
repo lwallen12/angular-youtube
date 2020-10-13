@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Queue } from 'src/app/models/queue';
+import { VotePackage } from 'src/app/models/votePackage';
 
 
 @Injectable({
@@ -16,9 +17,24 @@ export class QueueService {
   videos = [];
 
   addVideoToQueue(queue) {
-    this.videos.push(queue);
+    //this.videos.push(queue);
     console.log(this.videos.length);
     //console.log(queue);
+  }
+
+  updateVotes(votePackage: VotePackage) {
+    this.getPartyVideos(votePackage.partyName).subscribe(
+      data => {
+        let vidInQuestion = data.find(x => x.videoId = votePackage.videoId);
+
+    if (votePackage.action === 'Up') {
+      vidInQuestion.vote = vidInQuestion.vote + 1;
+    } else {
+      vidInQuestion.vote = vidInQuestion.vote - 1;
+    }
+      }
+    );
+    
   }
 
   getPartyVideos(partyName: string): Observable<Queue[]>{
