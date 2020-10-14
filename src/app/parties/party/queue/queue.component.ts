@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { YouTubePlayer } from '@angular/youtube-player';
+import { VotePackage } from 'src/app/models/votePackage';
+import { SignalrService } from 'src/app/signalr.service';
 import { QueueService } from '../search/queue.service';
 
 @Component({
@@ -13,12 +16,31 @@ export class QueueComponent implements OnInit {
 
   newVids = [];
   selectedVid = '';
+  partyName = '';
 
   playStatus = 'waiting';
 
-  constructor(private queueService: QueueService) {  
-    this.newVids = this.queueService.getVideos();
-    console.log(this.newVids);
+  constructor(private queueService: QueueService, 
+              private router: Router, 
+              private signalrService: SignalrService) {  
+    
+                signalrService.voteStream$.subscribe(
+                  votePackage => {
+                    let vidInQuestion = this.newVids.find(v => v.videoId === votePackage.videoId);
+
+                    if (votePackage.action === 'Up') {
+                      vidInQuestion.vote++;
+                    } else {
+                      vidInQuestion.vote--;
+                    }
+                  }
+                );
+
+                signalrService.queueItemStream$.subscribe(
+                  queueItem => {
+                    this.newVids.push(queueItem);
+                  }
+                );
    }
 
   refresh() {
@@ -33,6 +55,18 @@ export class QueueComponent implements OnInit {
 
     tag.src = "https://www.youtube.com/iframe_api";
     document.body.appendChild(tag);
+
+    console.log(this.router.url);
+    this.partyName = this.router.url.split('/')[2];
+    console.log(this.partyName);
+
+    this.queueService.getPartyVideos(this.partyName).subscribe(
+      data => {
+        this.newVids = data;
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 
   startItUp() {
@@ -43,7 +77,7 @@ export class QueueComponent implements OnInit {
     }
 
     this.playStatus = 'playing';
-    this.selectedVid = this.findHighestVotedVideo().id.videoId;
+    this.selectedVid = this.findHighestVotedVideo().videoId;
   }
 
   onReady(event) {
@@ -75,7 +109,7 @@ export class QueueComponent implements OnInit {
         } 
 
         console.log(this.findHighestVotedVideo());
-        this.selectedVid = this.findHighestVotedVideo().id.videoId;
+        this.selectedVid = this.findHighestVotedVideo().videoId;
 
         console.log("ended"); 
     }
@@ -90,8 +124,7 @@ export class QueueComponent implements OnInit {
   }
 
 
-  findHighestVotedVideo() {
-
+  findHighestVotedVideo() { 
     let allVotes = this.newVids.map(vid => vid.vote);
 
     let highestObj = this.newVids.find(vid => vid.vote === Math.max(...allVotes));
@@ -105,22 +138,36 @@ export class QueueComponent implements OnInit {
   /////////////////////////////
 
   upVote(vid) {
+    // let index = this.newVids.findIndex(v => v.videoId === vid.videoId);
+    // this.newVids[index].vote = this.newVids[index].vote + 1;
 
-    // if (!this.selectedVid) {
-    //   this.selectedVid = vid.id;
-    // }
+    // this.queueService.testCall().subscribe(
+    //   data => {
+    //     console.log("AHHHHH calling the send all method in signalr");
+    //     console.log(data);
+    //   }
+    // );
 
-    let index = this.newVids.findIndex(v => v.id === vid.id);
+    //Need to call hub method 1st, then we're done here... but the affecting the queue thing
+    //as a listener
+    let votePackage = new VotePackage();
+    votePackage.partyName = this.partyName;
+    votePackage.videoId = vid.videoId;
+    votePackage.action = "Up";
 
-    this.newVids[index].vote = this.newVids[index].vote + 1;
-
-    // console.log("are you even upvoting?: " + this.newVids[index].vote);
+    console.log(votePackage);
+    this.signalrService.vote(votePackage);
+    
   }
   
   downVote(vid) {
-    let index = this.newVids.findIndex(v => v.id === vid.id);
-    this.newVids[index].vote = this.newVids[index].vote - 1;
-    // console.log("are you even downvoting?: " + this.newVids[index].vote);
+    let votePackage = new VotePackage();
+    votePackage.partyName = this.partyName;
+    votePackage.videoId = vid.videoId;
+    votePackage.action = "Down";
+
+    console.log(votePackage);
+    this.signalrService.vote(votePackage);
   }
 
 }
