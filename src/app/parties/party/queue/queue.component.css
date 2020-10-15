@@ -3,7 +3,8 @@
 }
 
 button {
-    width: 140px;
+    width: 40%;
+    margin: 5px;
     height: 45px;
     font-family: 'Roboto', sans-serif;
     font-size: 11px;
@@ -31,8 +32,13 @@ button:hover {
     border: 3px solid black;
     background-color: aliceblue;
     margin: 10px;
-    width: 400px;
+    width: 80% vw;
 }
+
+img {
+    width: 100%;
+}
+
 
 .active-video {
     background-color: pink;

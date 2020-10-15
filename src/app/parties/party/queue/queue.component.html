@@ -11,12 +11,13 @@
     </div>
 
     <button (click)="startItUp()">Start it up!</button>
-    <button (click)="refresh()">Refresh</button>
 
     <div class="songcards">
         <div [ngClass]="{'active-video': vid.videoId === this.selectedVid}" *ngFor="let vid of newVids" class="songcard">
             <h3>{{vid.title}}</h3>
-            <img src={{vid.imageURL}}/>
+            <div class="img-cont">
+                <img src={{vid.imageURL}}/>
+            </div>
             <h1 style="text-align: center;">{{vid.vote}}</h1>
             <div class="button-holder">
                 <button (click)="upVote(vid)">Upvote</button><button (click)="downVote(vid)">Downvote</button>

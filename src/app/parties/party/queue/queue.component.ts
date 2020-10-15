@@ -43,10 +43,7 @@ export class QueueComponent implements OnInit {
                 );
    }
 
-  refresh() {
-    this.newVids = this.queueService.getVideos();
-    console.log(this.queueService.getVideos());
-  }
+  
 
   ngOnInit(): void {
     // This code loads the IFrame Player API code asynchronously, according to the instructions at
