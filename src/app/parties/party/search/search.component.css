@@ -44,3 +44,10 @@ button:hover {
 img {
   width: 100%;
 }
+
+/* On bigger screens, where width is less than 450px, change the style of boxes/cards*/
+@media screen and (min-width: 450px) {
+  .queryCard {
+      width: 450px;
+  }
+}

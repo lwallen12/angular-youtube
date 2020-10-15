@@ -5,3 +5,10 @@
     margin: 5px;
     text-align: center;
 }
+
+/* On bigger screens, where width is less than 450px, change the style of boxes*/
+@media screen and (min-width: 450px) {
+    .party {
+        width: 450px;
+    }
+  }

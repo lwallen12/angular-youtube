@@ -43,3 +43,10 @@ img {
 .active-video {
     background-color: pink;
 }
+
+/* On bigger screens, where width is less than 450px, change the style of boxes*/
+@media screen and (min-width: 450px) {
+    .songcard {
+        width: 450px;
+    }
+  }
