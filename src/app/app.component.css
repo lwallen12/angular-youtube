@@ -70,12 +70,12 @@
 #main {
   transition: margin-left .5s; /* If you want a transition effect */
   padding: 20px;
-  width: 250px; /*needs to be set to 0 to close*/
+  /* width: 250px; needs to be set to 0 to close */
 }
 
-#mySidebar {
-  width: 250px; /*needs to be set to 0 to close*/
-}
+/* #mySidebar {
+  width: 250px; needs to be set to 0 to close
+} */
 
 /* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
 @media screen and (max-height: 450px) {

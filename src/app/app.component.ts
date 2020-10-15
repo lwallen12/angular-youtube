@@ -16,6 +16,8 @@ export class AppComponent  {
 
   }
 
+  openOrClose = '0px';
+
   ngOnInit() {
     this.signalrService.startConnection();
     this.signalrService.addBroadCastListener();
@@ -27,11 +29,11 @@ export class AppComponent  {
   }
 
   openNav() {
-
+    this.openOrClose = '250px';
   }
 
   closeNav() {
-    
+    this.openOrClose = '0px';
   }
 
 }
