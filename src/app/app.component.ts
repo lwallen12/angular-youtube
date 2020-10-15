@@ -8,7 +8,7 @@ import { SignalrService } from './signalr.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent  {
-  title = 'angular-youtube';
+  title = 'JukeBox POC';
   
   constructor(private signalrService: SignalrService) {
 
@@ -22,6 +22,8 @@ export class AppComponent  {
     this.signalrService.addVoteListener();
   }
 
- 
+  clicktest() {
+    console.log("now we show nav menu");
+  }
 
 }
