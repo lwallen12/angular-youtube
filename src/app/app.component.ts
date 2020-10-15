@@ -26,4 +26,12 @@ export class AppComponent  {
     console.log("now we show nav menu");
   }
 
+  openNav() {
+
+  }
+
+  closeNav() {
+    
+  }
+
 }
